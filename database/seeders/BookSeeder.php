@@ -2,18 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class DatabaseSeeder extends Seeder
+class BookSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(BookSeeder::class);
+        DB::table('books')->truncate();
+        Book::factory(5)->create();
     }
 }

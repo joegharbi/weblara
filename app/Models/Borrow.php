@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Borrow extends Model
 {
     use HasFactory;
-    public function borrows(){
-        return $this->hasMany(Borrow::class);
+    public function book(){
+        return $this->belongsTo(Book::class);
     }
 }

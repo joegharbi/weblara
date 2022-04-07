@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +16,7 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('books')->truncate();
-        Book::factory()
-            ->hasBorrows(3)
-            ->count(5)
-            ->create();
+        DB::table('genres')->truncate();
+        User::factory(3)->create();
     }
 }

@@ -11,4 +11,13 @@ class Borrow extends Model
     public function book(){
         return $this->belongsTo(Book::class);
     }
+    public function reader(){
+        return $this->belongsTo(User::class,'reader_id');
+    }
+    public function managedRequests(){
+        return $this->belongsTo(User::class,'request_managed_by');
+    }
+    public function managedReturns(){
+        return $this->belongsTo(User::class,'request_returned_by');
+    }
 }

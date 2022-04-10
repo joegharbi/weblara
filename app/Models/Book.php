@@ -12,7 +12,7 @@ class Book extends Model
         return $this->hasMany(Borrow::class,'book_id');
     }
     public function activeBorrows() {
-        return $this->getAllBorrows()->where('status', '=', 'ACCEPTED');
+        return $this->borrows()->where('status', '=', 'ACCEPTED');
     }
     public function genres()
     {

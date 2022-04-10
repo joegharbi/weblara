@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Borrow;
+use App\Models\Genre;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class BookController extends Controller
 {
@@ -47,7 +50,10 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        $neb=Borrow::all()->where('status', '!=', 'ACCEPTED')->count();
+        $nb=Book::all()->count();
+        $numb=$nb-$neb;
+        return view('books.show',['book'=>$book,'neb'=>$numb]);
     }
 
     /**

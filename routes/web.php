@@ -14,5 +14,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $numUsers=\App\Models\User::all()->where('is_librarian','=','0')->count();
+    $numGenres=\App\Models\Genre::count();
+    $numBooks=\App\Models\Book::count();
+    $numActRent= \App\Models\Borrow::all()->where('status', '=', 'ACCEPTED')->count();
+    $listGenre=\App\Models\Genre::all();
+
+    return view('welcome',[
+        'numUsers'=>$numUsers,
+        'numGenres'=>$numGenres,
+        'numBooks'=>$numBooks,
+        'numActRent'=>$numActRent,
+        'listGenre'=>$listGenre
+    ]);
+
+
 });
+Route::resource('genres', \App\Http\Controllers\GenreController::class);
+Route::resource('genres.books', \App\Http\Controllers\BookController::class)->shallow();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

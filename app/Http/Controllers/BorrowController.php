@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Borrow;
 use App\Http\Requests\StoreBorrowRequest;
 use App\Http\Requests\UpdateBorrowRequest;
@@ -47,7 +48,11 @@ class BorrowController extends Controller
      */
     public function show(Borrow $borrow)
     {
-        //
+
+        return view('borrows.detail',[
+           'borrow'=>$borrow
+        ]);
+
     }
 
     /**

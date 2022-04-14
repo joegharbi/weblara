@@ -21,6 +21,11 @@ class BorrowPolicy
         //
     }
 
+    public function reader(User $user)
+    {
+        if(auth()->user()->is_librarian===0);
+    }
+
     /**
      * Determine whether the user can view the model.
      *

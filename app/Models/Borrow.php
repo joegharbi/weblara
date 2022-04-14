@@ -18,6 +18,6 @@ class Borrow extends Model
         return $this->belongsTo(User::class,'request_managed_by');
     }
     public function managedReturns(){
-        return $this->belongsTo(User::class,'request_returned_by');
+        return $this->belongsTo(User::class,'return_managed_by');
     }
 }

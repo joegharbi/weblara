@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Borrow;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class BookController extends Controller
@@ -53,7 +54,12 @@ class BookController extends Controller
         $neb=Borrow::all()->where('status', '!=', 'ACCEPTED')->count();
         $nb=Book::all()->count();
         $numb=$nb-$neb;
-        return view('books.show',['book'=>$book,'neb'=>$numb]);
+        $user=Auth::user();
+        return view('books.show',[
+            'book'=>$book,
+            'neb'=>$numb,
+            'user'=>$user
+        ]);
     }
 
     /**

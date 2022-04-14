@@ -36,3 +36,20 @@ Route::resource('genres.books', \App\Http\Controllers\BookController::class)->sh
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/my_borrows',function (){
+    $borrow=\App\Models\Borrow::all()->where('reader_id','===',auth()->id());
+    $pbook=$borrow->where('status','===','PENDING');
+    $abook=$borrow->where('status','===','ACCEPTED')->where('deadline','>',now());
+    $lbook=$borrow->where('status','===','ACCEPTED')->where('deadline','<',now());
+    $rbook=$borrow->where('status','===','REJECTED');
+    $rtbook=$borrow->where('status','===','RETURNED');
+    return view('borrows.my_borrows',[
+        'pending'=>$pbook,
+        'inTime'=>$abook,
+        'late'=>$lbook,
+        'rejected'=>$rbook,
+        'returned'=>$rtbook,
+    ]);
+})->middleware('auth');
+Route::resource('borrows',\App\Http\Controllers\BorrowController::class)->middleware('auth');

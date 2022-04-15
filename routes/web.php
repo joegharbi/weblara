@@ -30,6 +30,7 @@ Route::get('/', function () {
 
 
 });
+Route::resource('books',\App\Http\Controllers\BookController::class)->middleware('auth');
 Route::resource('genres', \App\Http\Controllers\GenreController::class);
 Route::resource('genres.books', \App\Http\Controllers\BookController::class)->shallow();
 

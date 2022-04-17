@@ -28,9 +28,10 @@ class UpdateBookRequest extends FormRequest
             'authors'=>'required|max:255',
             'released_at'=>'required|date|before:now',
             'pages'=>'required|integer|min:1',
-            'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',
+            'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i|unique:books',
             'description'=>'nullable',
-//            'genres[]'=>'required|min:1',
+            'genres' => 'nullable | array',
+            'cover_image'=>'nullable|url',
             'in_stock'=>'required|integer|min:0'
         ];
     }

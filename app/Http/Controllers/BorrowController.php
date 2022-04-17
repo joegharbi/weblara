@@ -19,11 +19,11 @@ class BorrowController extends Controller
     {
         if(\auth()->user()->is_librarian){
             $borrow=\App\Models\Borrow::all();
-            $pbook=$borrow->where('status','===','PENDING');
-            $abook=$borrow->where('status','===','ACCEPTED')->where('deadline','>',now());
-            $lbook=$borrow->where('status','===','ACCEPTED')->where('deadline','<',now());
-            $rbook=$borrow->where('status','===','REJECTED');
-            $rtbook=$borrow->where('status','===','RETURNED');
+            $pbook=$borrow->where('status','=','PENDING');
+            $abook=$borrow->where('status','=','ACCEPTED')->where('deadline','>',now());
+            $lbook=$borrow->where('status','=','ACCEPTED')->where('deadline','<',now());
+            $rbook=$borrow->where('status','=','REJECTED');
+            $rtbook=$borrow->where('status','=','RETURNED');
             return view('borrows.index',[
                 'pending'=>$pbook,
                 'inTime'=>$abook,
@@ -33,11 +33,11 @@ class BorrowController extends Controller
             ]);
         }else{
         $borrow=\App\Models\Borrow::all()->where('reader_id','===',auth()->id());
-        $pbook=$borrow->where('status','===','PENDING');
-        $abook=$borrow->where('status','===','ACCEPTED')->where('deadline','>',now());
-        $lbook=$borrow->where('status','===','ACCEPTED')->where('deadline','<',now());
-        $rbook=$borrow->where('status','===','REJECTED');
-        $rtbook=$borrow->where('status','===','RETURNED');
+        $pbook=$borrow->where('status','=','PENDING');
+        $abook=$borrow->where('status','=','ACCEPTED')->where('deadline','>',now());
+        $lbook=$borrow->where('status','=','ACCEPTED')->where('deadline','<',now());
+        $rbook=$borrow->where('status','=','REJECTED');
+        $rtbook=$borrow->where('status','=','RETURNED');
         return view('borrows.index',[
             'pending'=>$pbook,
             'inTime'=>$abook,
@@ -113,7 +113,14 @@ class BorrowController extends Controller
     public function update(UpdateBorrowRequest $request, Borrow $borrow)
     {
         $this->authorize('is_librarian');
-        $borrow->update($request->validated());
+        $data=$request->validated();
+        if($data['status']!='RETURNED'){
+        $data['request_managed_by']=\auth()->id();
+        }
+        else{
+            $data['return_managed_by']=\auth()->id();
+        }
+        $borrow->update($data);
         return redirect()->route('borrows.show',['borrow'=>$borrow]);
     }
 

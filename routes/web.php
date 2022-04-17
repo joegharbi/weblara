@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\QueryBuilder\QueryBuilder;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,10 @@ Route::get('/profile',function (){
     return view('profile',['user'=>$user]);
     })
     ->name('profile')->middleware('auth');
+
+Route::any('/filter',function (){
+    $filter=$_GET['filter'];
+    $books=\Illuminate\Support\Facades\DB::table('books')->where('title','=',$filter)
+        ->orWhere('authors','=',$filter)->get();
+    return view('filter',['books'=>$books]);
+})->name('filter');

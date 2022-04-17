@@ -23,6 +23,19 @@ class BookController extends Controller
         return view('books.index');
     }
 
+//    /**
+//     * Display a listing of the resource.
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function filter()
+//    {
+//        $books = QueryBuilder::for(\App\Models\Book::class)
+//            ->allowedFilters('title','authors')
+//            ->get();
+//        return view('filter',['books'=>$books]);
+//    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +44,8 @@ class BookController extends Controller
     public function create()
     {
         $this->authorize('is_librarian');
-        return view('books.create');
+        $genres = Genre::all();
+        return view('books.create',['genres'=>$genres]);
     }
 
     /**
@@ -44,7 +58,10 @@ class BookController extends Controller
     {
         $this->authorize('is_librarian');
         $data = $request->validated();
-        Book::create($data);
+        $genre = Book::create($data);
+        if (isset($data['genres'])) {
+            $genre->genres()->attach($data['genres']);
+        }
         return redirect()->route('books.index');
     }
 
@@ -59,11 +76,9 @@ class BookController extends Controller
         $neb=Borrow::all()->where('status', '!=', 'ACCEPTED')->count();
         $nb=Book::all()->count();
         $numb=$nb-$neb;
-        $user=Auth::user();
         return view('books.show',[
             'book'=>$book,
             'neb'=>$numb,
-            'user'=>$user
         ]);
     }
 
@@ -76,7 +91,9 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $this->authorize('is_librarian');
-        return view('books.edit',['book'=>$book]);
+        $genres = Genre::all();
+        $book->load('genres');
+        return view('books.edit', compact('book', 'genres'));
     }
 
     /**
@@ -89,7 +106,9 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         $this->authorize('is_librarian');
-        $book->update($request->validated());
+        $data = $request->validated();
+        $book->update($data);
+        $book->genres()->sync($data['genres'] ?? []);
         return redirect()->route('books.index');
     }
 

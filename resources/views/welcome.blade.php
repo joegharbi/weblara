@@ -1,6 +1,10 @@
 @extends('layouts.main')
 @section('content')
     <h1>Welcome</h1>
+    <form action="{{ route('filter') }}" method="get" class="input-group">
+        <input type="search" name="filter" id="filter" class="form-control rounded" placeholder="Search by title or authors" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary">search</button>
+    </form>
         <div class="container">
             <div>
                 <p>

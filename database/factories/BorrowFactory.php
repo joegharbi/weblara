@@ -27,8 +27,6 @@ class BorrowFactory extends Factory
             'deadline'=>$this->faker->dateTime(),
             'returned_at'=>$this->faker->dateTime(),
             'return_managed_by'=>User::factory(),
-
-
         ];
     }
 }

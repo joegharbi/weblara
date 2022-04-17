@@ -66,30 +66,34 @@
                 </div>
                 @enderror
             </div>
-            {{--            <div>--}}
-            {{--                Genres--}}
-            {{--            </div>--}}
-            {{--            @foreach(\App\Models\Genre::all() as $g)--}}
-            {{--                    <div class="form-check">--}}
-            {{--                    <input type="checkbox" value="{{$g->id}}"--}}
-            {{--                    class="form-check-input  @error('genres[]') is-invalid @enderror"--}}
-            {{--                           id="{{$g->id}}" name='genres[]'--}}
-            {{--                    @checked($g->id||old('genres[]'))>--}}
-            {{--                    <label for="genres[]">{{$g->name}}</label>--}}
-            {{--                    </div>--}}
-            {{--            @endforeach--}}
-            {{--            @error('genres[]')--}}
-            {{--            <div class="invalid-feedback">--}}
-            {{--                {{$message}}--}}
-            {{--            </div>--}}
-            {{--            @enderror--}}
+            <div class="form-group d-flex flex-wrap">
+                @foreach ($genres as $genre)
+                    <div class="custom-control custom-switch col-sm-2">
+                        <input type="checkbox" class="custom-control-input" name="genres[]" id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}" @if ($book->genres->contains($genre)) checked @endif
+                        >
+                        <label class="custom-control-label" for="genre-{{ $genre['id'] }}">
+                            {{ $genre['name'] }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
             <div class="mb-3">
-                <label for="in_stock">Pages</label>
+                <label for="in_stock">In stock</label>
                 <input type="number" class="form-control @error('in_stock') is-invalid @enderror"
                        value="{{old('in_stock',$book->in_stock)}}" id="in_stock" name="in_stock">
                 @error('in_stock')
                 <div class="invalid-feedback">
                     {{$message}}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="cover_image">Cover image URL</label>
+                <input type="text" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror"
+                       id="cover_image" value="{{ old('cover_image', $book->image_url) }}" placeholder="http://example.com/image.png">
+                @error('cover_image')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
                 @enderror
             </div>

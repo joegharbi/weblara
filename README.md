@@ -1,5 +1,7 @@
 <Youssef Gharbi>
 <IKYCUE>
+Name: Youssef Gharbi
+Neptun code: IKYCUE
 This solution was submitted and prepared by stundent named above for the home assignment of the Web engineering c
 ourse.
 I declare that this solution is my own work.

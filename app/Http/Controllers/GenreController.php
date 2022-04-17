@@ -15,6 +15,7 @@ class GenreController extends Controller
      */
     public function index()
     {
+        $this->authorize('is_librarian');
         $gen=Genre::all();
         return view('genres.index',[
             'genres'=>$gen]);
@@ -27,7 +28,8 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('is_librarian');
+        return view('genres.create');
     }
 
     /**
@@ -38,7 +40,10 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request)
     {
-        //
+        $this->authorize('is_librarian');
+        $data = $request->validated();
+        Genre::create($data);
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -63,7 +68,8 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        $this->authorize('is_librarian');
+        return view('genres.edit',['genre'=>$genre]);
     }
 
     /**
@@ -75,7 +81,9 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        $this->authorize('is_librarian');
+        $genre->update($request->validated());
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -86,6 +94,8 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $this->authorize('is_librarian');
+        $genre->delete();
+        return redirect()->route('genres.index');
     }
 }

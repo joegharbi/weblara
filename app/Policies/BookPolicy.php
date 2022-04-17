@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use function PHPUnit\Framework\returnArgument;
 
 class BookPolicy
 {

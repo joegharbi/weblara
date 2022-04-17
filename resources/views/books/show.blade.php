@@ -2,9 +2,8 @@
 @section('content')
     <div class="container py-3">
         <h2>Title: {{$book->title}}</h2>
-        <form action="#" method="POST">
+        <form action="{{route('borrows.store',['book'=>$book])}}" method="POST">
             @csrf
-
             <div>
                 <div>
                     {{$book->authors}}
@@ -29,31 +28,31 @@
                 </div>
             </div>
             @auth()
-                @if((auth()->user()->is_librarian===0) && ($book->borrows->where('book_id','===',$book->id)->first() !=null))
-                    @if((auth()->id()===$book->borrows->where('book_id','===',$book->id)->first()->reader_id)&&($book->borrows->where('book_id','===',$book->id)->first()->status!='RETURNED'))
-                        <div class="form-group">
-                            <h5>
-                                You already have an ongoing request with this book
-                            </h5>
-                            <button type="submit" class="btn btn-primary" disabled>Borrow this book</button>
-                        </div>
-                    @else
-                        <div class="form-group">
-                            <h5>
-                                You don't have an ongoing request with this book
-                            </h5>
-                            <button type="submit" class="btn btn-primary">Borrow this book</button>
-                        </div>
-                    @endif
-                @else
-                    <div class="form-group">
-                        <h5>
-                            You don't have an ongoing request with this book
-                        </h5>
-
-                        <button type="submit" class="btn btn-primary">Borrow this book</button>
-                    </div>
-                @endif
+                       @cannot('is_librarian')
+                            @if($book->ongoingBorrows->isNotEmpty())
+                                <div class="form-group">
+                                    <h5>
+                                        You already have an ongoing request with this book
+                                    </h5>
+                                    <button type="submit" class="btn btn-primary" disabled>Borrow this book</button>
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <h5>
+                                        You don't have an ongoing request with this book
+                                    </h5>
+                                    <button type="submit" class="btn btn-primary">Borrow this book</button>
+                                </div>
+                            @endif
+                        @endcannot
+                @can('is_librarian')
+                               <a href="{{ route('books.edit',['book'=>$book]) }}" class="btn btn-outline-primary">Edit</a>
+                               <form action="{{ route('books.destroy', ['book' => $book['id']]) }}" method="post" class="d-inline">
+                                   @csrf
+                                   @method('delete')
+                                   <button class="btn btn-warning">Delete</button>
+                               </form>
+                           @endcan
             @endauth
             @guest()
                 <div class="form-group">

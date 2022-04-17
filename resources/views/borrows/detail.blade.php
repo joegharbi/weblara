@@ -18,8 +18,48 @@
             <p class="card-text">Date of return: {{$borrow->returned_at}}</p>
             <p class="card-text">Return managed by: {{$borrow->managedReturns->name}}</p>
         @endif
-        @if($borrow->deadline>now())
+        @if($borrow->deadline<now())
             <button class="btn btn-warning" disabled>Deadline already crossed</button>
         @endif
+        @can('is_librarian')
+            <form action="{{route('borrows.update',['borrow'=>$borrow])}}" method="post">
+                @csrf
+                @method('put')
+                <div class="mb-3">
+                    <label for="deadline">Deadline</label>
+                    <input type="date" class="form-control @error('deadline') is-invalid @enderror"
+                           value="{{old('deadline',$borrow->deadline)}}" id="deadline" name="deadline">
+                    @error('deadline')
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="status">Status</label>
+                    <select name="status" class="form-control @error('status') is-invalid @enderror">
+                        <option value="" selected disabled>Select Status</option>
+                        <option value="PENDING" @selected(old('status',$borrow->status)=='PENDING')>
+                            PENDING
+                        </option>
+                        <option value="REJECTED" @selected(old('status',$borrow->status)=='REJECTED')>
+                            REJECTED
+                        </option>
+                        <option value="ACCEPTED" @selected(old('status',$borrow->status)=='ACCEPTED')>
+                            ACCEPTED
+                        </option>
+                        <option value="RETURNED" @selected(old('status',$borrow->status)=='RETURNED')>
+                            RETURNED
+                        </option>
+                        @error('status')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        @endcan
     </div>
 @endsection

@@ -29,8 +29,8 @@ class StoreBookRequest extends FormRequest
             'released_at'=>'required|date|before:now',
             'pages'=>'required|integer|min:1',
             'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',
-            'description'=>'required',
-            'genres'=>'required',
+            'description'=>'nullable',
+//            'genres[]'=>'required|min:1',
             'in_stock'=>'required|integer|min:0'
         ];
     }

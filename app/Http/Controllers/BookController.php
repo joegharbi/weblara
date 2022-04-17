@@ -19,7 +19,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('is_librarian');
+        return view('books.index');
     }
 
     /**
@@ -29,6 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
+        $this->authorize('is_librarian');
         return view('books.create');
     }
 
@@ -40,8 +42,10 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $validatedData=$request->validated();
-        dd($validatedData);
+        $this->authorize('is_librarian');
+        $data = $request->validated();
+        Book::create($data);
+        return redirect()->route('books.index');
     }
 
     /**
@@ -71,7 +75,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $this->authorize('is_librarian');
+        return view('books.edit',['book'=>$book]);
     }
 
     /**
@@ -83,7 +88,9 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $this->authorize('is_librarian');
+        $book->update($request->validated());
+        return redirect()->route('books.index');
     }
 
     /**
@@ -94,6 +101,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $this->authorize('is_librarian');
+        $book->delete();
+        return redirect()->route('books.index');
     }
 }

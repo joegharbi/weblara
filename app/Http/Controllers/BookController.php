@@ -23,19 +23,6 @@ class BookController extends Controller
         return view('books.index');
     }
 
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function filter()
-//    {
-//        $books = QueryBuilder::for(\App\Models\Book::class)
-//            ->allowedFilters('title','authors')
-//            ->get();
-//        return view('filter',['books'=>$books]);
-//    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -73,12 +60,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $neb=Borrow::all()->where('status', '!=', 'ACCEPTED')->count();
-        $nb=Book::all()->count();
-        $numb=$nb-$neb;
         return view('books.show',[
             'book'=>$book,
-            'neb'=>$numb,
         ]);
     }
 
@@ -107,6 +90,13 @@ class BookController extends Controller
     {
         $this->authorize('is_librarian');
         $data = $request->validated();
+        if(Book::all()->where('isbn','=',$data['isbn'])->first() ){
+            if(Book::all()->where('isbn','=',$data['isbn'])->first()->id != $book->id){
+                return back()->with('error','ISBN already taken!');
+//            return redirect()->route('books.edit',['book'=>$book]);
+            }
+        }
+
         $book->update($data);
         $book->genres()->sync($data['genres'] ?? []);
         return redirect()->route('books.index');

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBookRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class StoreBookRequest extends FormRequest
             'authors'=>'required|max:255',
             'released_at'=>'required|date|before:now',
             'pages'=>'required|integer|min:1',
-            'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i|unique:books',
+            'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i|unique:books,isbn',
             'description'=>'nullable',
             'genres' => 'nullable|array',
             'cover_image'=>'nullable|url',

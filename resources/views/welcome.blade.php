@@ -5,7 +5,34 @@
         <input type="search" name="filter" id="filter" class="form-control rounded" placeholder="Search by title or authors" aria-label="Search" aria-describedby="search-addon" />
         <button type="button" class="btn btn-outline-primary">search</button>
     </form>
-        <div class="container">
+    <h2>Genres</h2>
+    <div class="row">
+
+        @foreach(\App\Models\Genre::all() as $genre)
+            <div class="col-sm-3 my-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a class="btn btn-primary" href="{{route('genres.show',['genre'=>$genre])}}">{{ $genre['name'] }}
+                        </a>
+                        </h5>
+                        <p class="card-text"><h6>
+                            {{ $genre['style'] }}</p>
+                        </h6>
+                        <p class="card-text"><small class="text-muted">Last modified: {{ $genre['updated_at'] }}</small></p>
+                       @can('is_librarian')
+                        <a href="{{ route('genres.edit',['genre'=>$genre]) }}" class="btn btn-outline-primary">Edit</a>
+                        <form action="{{ route('genres.destroy', ['genre' => $genre['id']]) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-warning">Delete</button>
+                        </form>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+        @endforeach
+            <div class="container">
             <div>
                 <p>
                     Number of active users {{$numUsers}}
@@ -20,18 +47,6 @@
                     Number of active rents {{$numActRent}}
                 </p>
             </div>
-            <h5>
-                List of Genres:
-            </h5>
-                <ul class="list-unstyled">
-                    @foreach($listGenre as $lg)
-                        <ul>
-                            <li>
-                                <a rel="stylesheet" href="{{route('genres.show',['genre'=>$lg])}}" >  {{$lg->name}}</a>
-                            </li>
-                        </ul>
-                    @endforeach
-                </ul>
         </div>
 
 @endsection

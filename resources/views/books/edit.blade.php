@@ -1,6 +1,11 @@
 @extends('layouts.main')
 @section('content')
     <div class="container py-3">
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-block">
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
         <h2>Edit Book</h2>
         <form action="{{route('books.update',['book'=>$book])}}" method="post">
             @csrf
@@ -58,8 +63,8 @@
             </div>
             <div class="mb-3">
                 <label for="description">Description</label>
-                <textarea type="tex" class="form-control @error('description') is-invalid @enderror"
-                          value="{{old('description',$book->description)}}" id="description" name="description"></textarea>
+                <textarea type="text" class="form-control @error('description') is-invalid @enderror"
+                          id="description" name="description"> {{old('description',$book->description)}}</textarea>
                 @error('description')
                 <div class="invalid-feedback">
                     {{$message}}

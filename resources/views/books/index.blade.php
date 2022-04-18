@@ -17,6 +17,7 @@
                             <a href="{{ route('books.show', ['book' => $book['id']]) }}" class="btn btn-primary">Open</a>
                             @endcannot
                             @can('is_librarian')
+                            <a href="{{ route('books.show', ['book' => $book['id']]) }}" class="btn btn-primary">Open</a>
                             <a href="{{ route('books.edit',['book'=>$book]) }}" class="btn btn-outline-primary">Edit</a>
                             <form action="{{ route('books.destroy', ['book' => $book['id']]) }}" method="post" class="d-inline">
                             @csrf

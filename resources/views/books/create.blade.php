@@ -57,7 +57,7 @@
             <div class="mb-3">
                 <label for="description">Description</label>
                 <textarea type="tex" class="form-control @error('description') is-invalid @enderror"
-                          value="{{old('description')}}" id="description" name="description"></textarea>
+                          value="{{old('description')}}" id="description" name="description">{{old('description')}}</textarea>
                 @error('description')
                 <div class="invalid-feedback">
                     {{$message}}

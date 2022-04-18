@@ -24,8 +24,8 @@ class BookFactory extends Factory
             'cover_image'=>$this->faker->imageUrl(),
             'pages'=>$this->faker->numberBetween(90,750),
             'language_code'=>$this->faker->bothify('???'),
-            'isbn'=>$this->faker->sentence(),
-            'in_stock'=>$this->faker->randomNumber(),
+            'isbn'=>$this->faker->numerify('#############'),
+            'in_stock'=>$this->faker->numberBetween(10, 100),
 
         ];
     }

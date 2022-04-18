@@ -114,6 +114,7 @@ class BorrowController extends Controller
     {
         $this->authorize('is_librarian');
         $data=$request->validated();
+
         if($data['status']!='RETURNED'){
         $data['request_managed_by']=\auth()->id();
         }

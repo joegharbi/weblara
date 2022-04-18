@@ -17,14 +17,14 @@
                 {{$book->pages}}
                 {{$book->language_code}}
                 <div>
-                    {{$book->isbn}}
+                    ISBN: {{$book->isbn}}
                 </div>
                 <div>
-                    {{$book->in_stock}}
+                   In stock:  {{$book->in_stock}}
                 </div>
-                Available Books:{{$neb}}
+                Available Books:{{$book->in_stock-$book->activeBorrows()->count()}}
                 <div>
-                    {{$book->description}}
+                   Description: {{$book->description}}
                 </div>
             </div>
             @auth()

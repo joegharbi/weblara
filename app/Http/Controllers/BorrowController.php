@@ -115,12 +115,13 @@ class BorrowController extends Controller
         $this->authorize('is_librarian');
         $data=$request->validated();
 
-        if($data['status']!='RETURNED'){
-        $data['request_managed_by']=\auth()->id();
+        if($borrow['status']==='PENDING'){
+        $borrow['request_managed_by']=\auth()->id();
         }
-        else{
-            $data['return_managed_by']=\auth()->id();
+        elseif ($data['status']==='RETURNED'){
+            $borrow['return_managed_by']=\auth()->id();
         }
+
         $borrow->update($data);
         return redirect()->route('borrows.show',['borrow'=>$borrow]);
     }

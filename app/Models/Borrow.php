@@ -13,7 +13,7 @@ class Borrow extends Model
         'book_id',
         'status',
         'request_process_at',
-        'request_managed_at',
+        'request_managed_by',
         'deadline',
         'returned_at',
         'return_managed_by'

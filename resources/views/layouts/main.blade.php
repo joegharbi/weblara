@@ -14,15 +14,23 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
+                @auth()
+                    @can('is_librarian')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('books.index')}}">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('books.create')}}">New book</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{route('genres.index')}}">Genres</a>
+                        </li>
+                    @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('borrows.index')}}">Borrows</a>
+                        </li>
+                @endauth
+
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
                     <!-- Authentication Links -->
@@ -45,6 +53,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    Profile
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

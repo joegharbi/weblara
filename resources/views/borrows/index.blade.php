@@ -10,20 +10,28 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        @foreach($pending as $p)
-                           <h5>
-                               <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
-                           </h5>
-                        <li>
-                            {{$p->book->authors}}
-                        </li>
-                        <li>
-                            {{$p->book->request_process_at}}
-                        </li>
-                        <li>
-                            {{$p->book->deadline}}
-                        </li>
-                        @endforeach
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Authors</th>
+                                <th scope="col">Date of rental</th>
+                                <th scope="col">Deadline</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($pending as $p)
+                                <tr>
+                                    <th scope="row">
+                                        <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
+                                    </th>
+                                    <td>{{$p->book->authors}}</td>
+                                    <td>{{$p->request_process_at}}</td>
+                                    <td>{{$p->deadline}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -35,20 +43,28 @@
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        @foreach($inTime as $p)
-                            <h5>
-                                <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
-                            </h5>
-                            <li>
-                                {{$p->book->authors}}
-                            </li>
-                            <li>
-                                {{$p->book->request_process_at}}
-                            </li>
-                            <li>
-                                {{$p->book->deadline}}
-                            </li>
-                        @endforeach
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Authors</th>
+                                <th scope="col">Date of rental</th>
+                                <th scope="col">Deadline</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($inTime as $p)
+                                <tr>
+                                    <th scope="row">
+                                        <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
+                                    </th>
+                                    <td>{{$p->book->authors}}</td>
+                                    <td>{{$p->request_process_at}}</td>
+                                    <td>{{$p->deadline}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -60,23 +76,32 @@
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        @foreach($late as $p)
-                            <h5>
-                                <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
-                            </h5>
-                            <li>
-                                {{$p->book->authors}}
-                            </li>
-                            <li>
-                                {{$p->book->request_process_at}}
-                            </li>
-                            <li>
-                                {{$p->book->deadline}}
-                            </li>
-                        @endforeach
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Authors</th>
+                                <th scope="col">Date of rental</th>
+                                <th scope="col">Deadline</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($late as $p)
+                                <tr>
+                                    <th scope="row">
+                                        <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
+                                    </th>
+                                    <td>{{$p->book->authors}}</td>
+                                    <td>{{$p->request_process_at}}</td>
+                                    <td>{{$p->deadline}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingFour">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -85,20 +110,28 @@
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        @foreach($rejected as $p)
-                            <h5>
-                                <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
-                            </h5>
-                            <li>
-                                {{$p->book->authors}}
-                            </li>
-                            <li>
-                                {{$p->book->request_process_at}}
-                            </li>
-                            <li>
-                                {{$p->book->deadline}}
-                            </li>
-                        @endforeach
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Authors</th>
+                                <th scope="col">Date of rental</th>
+                                <th scope="col">Deadline</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($rejected as $p)
+                                <tr>
+                                    <th scope="row">
+                                        <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
+                                    </th>
+                                    <td>{{$p->book->authors}}</td>
+                                    <td>{{$p->request_process_at}}</td>
+                                    <td>{{$p->deadline}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -110,20 +143,29 @@
                 </h2>
                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        @foreach($returned as $p)
-                            <h5>
-                                <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
-                            </h5>
-                            <li>
-                                {{$p->book->authors}}
-                            </li>
-                            <li>
-                                {{$p->book->request_process_at}}
-                            </li>
-                            <li>
-                                {{$p->book->deadline}}
-                            </li>
-                        @endforeach
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Book Title</th>
+                                    <th scope="col">Authors</th>
+                                    <th scope="col">Date of rental</th>
+                                    <th scope="col">Deadline</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($returned as $p)
+                                <tr>
+                                    <th scope="row">
+                                        <a href={{route('borrows.show',['borrow'=>$p])}}>{{$p->book->title}}</a>
+                                    </th>
+                                    <td>{{$p->book->authors}}</td>
+                                    <td>{{$p->request_process_at}}</td>
+                                    <td>{{$p->deadline}}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>

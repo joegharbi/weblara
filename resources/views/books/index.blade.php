@@ -30,12 +30,6 @@
                 </div>
             @endforeach
 
-            <div class="col-sm-3 my-3">
-                <div class="card h-100">
-                    <a href="{{ route('books.create') }}" class="btn btn-secondary h-100 py-5">Create a new Book</a>
-                </div>
-            </div>
-
         </div>
     </div>
 

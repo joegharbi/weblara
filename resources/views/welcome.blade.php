@@ -1,10 +1,27 @@
 @extends('layouts.main')
 @section('content')
     <h1>Welcome</h1>
+    <div class="input-group">
     <form action="{{ route('filter') }}" method="get" class="input-group">
-        <input type="search" name="filter" id="filter" class="form-control rounded" placeholder="Search by title or authors" aria-label="Search" aria-describedby="search-addon" />
-        <button type="button" class="btn btn-outline-primary">search</button>
+        <input type="search" name="filter" id="filter" class="form-control rounded"
+               placeholder="Search by title or authors" aria-label="Search"/>
+{{--        <button type="button" class="btn btn-outline-primary">search</button>--}}
     </form>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Number of active users <span class="badge bg-primary rounded-pill">{{$numUsers}}</span>
+        </li>
+        <li class="list-group-item">
+            Number of genres <span class="badge bg-primary rounded-pill">{{$numGenres}}</span>
+        </li>
+        <li class="list-group-item">
+            Number of books <span class="badge bg-primary rounded-pill">{{$numBooks}}</span>
+        </li>
+        <li class="list-group-item">
+            Number of active rents <span class="badge bg-primary rounded-pill">{{$numActRent}}</span>
+        </li>
+    </ul>
     <h2>Genres</h2>
     <div class="row">
 
@@ -32,21 +49,8 @@
                 </div>
             </div>
         @endforeach
-            <div class="container">
-            <div>
-                <p>
-                    Number of active users {{$numUsers}}
-                </p>
-                <p>
-                    Number of genres {{$numGenres}}
-                </p>
-                <p>
-                    Number of books {{$numBooks}}
-                </p>
-                <p>
-                    Number of active rents {{$numActRent}}
-                </p>
-            </div>
-        </div>
+
+
+
 
 @endsection

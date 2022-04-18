@@ -18,8 +18,8 @@
             <p class="card-text">Date of return: {{$borrow->returned_at}}</p>
             <p class="card-text">Return managed by: {{$borrow->managedReturns->name}}</p>
         @endif
-        @if($borrow->deadline<now())
-            <button class="btn btn-warning" disabled>Deadline already crossed</button>
+        @if($borrow->deadline!=null and $borrow->deadline<now())
+            <button class="btn btn-warning" disabled>Deadline already crossed {{$borrow->deadline}}</button>
         @endif
         @can('is_librarian')
             <form action="{{route('borrows.update',['borrow'=>$borrow])}}" method="post">

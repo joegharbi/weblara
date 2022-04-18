@@ -69,7 +69,8 @@
                 @foreach ($genres as $genre)
                     <div class="custom-control custom-switch col-sm-2">
                         <input type="checkbox" class="custom-control-input" name="genres[]"
-                               id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}">
+                               id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}"
+                            {{ (is_array(old('genres')) && in_array($genre['id'], old('genres'))) ? 'checked' : '' }}>
                         <label class="custom-control-label" for="genre-{{ $genre['id'] }}">
                             {{ $genre['name'] }}
                         </label>
@@ -86,6 +87,16 @@
                 </div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label for="language_code">Language code</label>
+                <input type="text" class="form-control  @error('language_code') is-invalid @enderror"
+                       value="{{old('language_code','hu')}}" id="language_code" name="language_code" >
+                @error('language_code')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
             <div class="form-group">
                 <label for="cover_image">Cover image URL</label>
                 <input type="text" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror"
@@ -96,6 +107,7 @@
                 </div>
                 @enderror
             </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

@@ -31,7 +31,7 @@ class StoreBookRequest extends FormRequest
             'pages'=>'required|integer|min:1',
             'isbn'=>'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i|unique:books,isbn',
             'description'=>'nullable',
-            'genres' => 'nullable|array',
+            'genres' => 'required|array',
             'cover_image'=>'nullable|url',
             'in_stock'=>'required|integer|min:0'
         ];

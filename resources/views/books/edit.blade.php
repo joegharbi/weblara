@@ -74,8 +74,10 @@
             <div class="form-group d-flex flex-wrap">
                 @foreach ($genres as $genre)
                     <div class="custom-control custom-switch col-sm-2">
-                        <input type="checkbox" class="custom-control-input" name="genres[]" id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}" @if ($book->genres->contains($genre)) checked @endif
-                        >
+                        <input type="checkbox" class="custom-control-input" name="genres[]"
+                               id="genre-{{ $genre['id'] }}" value="{{ $genre['id'] }}"
+                               @if ($book->genres->contains($genre)) checked @endif
+                            {{ (is_array(old('genres')) && in_array($genre['id'], old('genres'))) ? 'checked' : '' }}>
                         <label class="custom-control-label" for="genre-{{ $genre['id'] }}">
                             {{ $genre['name'] }}
                         </label>
@@ -87,6 +89,16 @@
                 <input type="number" class="form-control @error('in_stock') is-invalid @enderror"
                        value="{{old('in_stock',$book->in_stock)}}" id="in_stock" name="in_stock">
                 @error('in_stock')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="language_code">Language code</label>
+                <input type="text" class="form-control  @error('language_code') is-invalid @enderror"
+                       value="{{old('language_code',$book->language_code)}}" id="language_code" name="language_code" >
+                @error('language_code')
                 <div class="invalid-feedback">
                     {{$message}}
                 </div>

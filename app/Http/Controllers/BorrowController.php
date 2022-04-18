@@ -119,6 +119,7 @@ class BorrowController extends Controller
         $borrow['request_managed_by']=\auth()->id();
         }
         elseif ($data['status']==='RETURNED'){
+            $borrow['returned_at']=now();
             $borrow['return_managed_by']=\auth()->id();
         }
 
